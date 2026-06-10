@@ -8,10 +8,16 @@ const About = () => {
         <hr className="purple-line" />
       </div>
       <p>
-        I am a Final-year Computer Science student at the University of the Punjab with a deep interest in Artificial Intelligence and Machine Learning. My current focus is on exploring Natural Language Processing (NLP) and Retrieval-Augmented Generation (RAG) to develop intelligent applications that solve real-world challenges. I am passionate about combining innovative algorithms with user-centric design to create impactful solutions that enhance human interaction and decision-making.
+        I'm an AI Engineer and recent Computer Science graduate from the University of the Punjab, currently working as an Associate Software Engineer (AI/ML) at The Dev Corporate. My work sits at the intersection of large language models, backend engineering, and real-world product development — building systems that are not just technically sound but genuinely useful.
       </p>
       <p>
-        As someone who thrives on innovation and continuous learning, I aim to contribute to the tech industry by working on cutting-edge projects that drive meaningful change. My ambition is to collaborate with forward-thinking teams and organizations, leveraging my skills to push the boundaries of AI technology while constantly evolving as a developer and problem-solver.
+        My core focus is on LLMs, RAG pipelines, and agentic AI systems. I've built projects ranging from an AI-powered MCP marketplace with semantic search and Web3 billing, to a legal advisory chatbot backed by vector databases, to a GitHub security auditor powered by static analysis and language models. I enjoy the full stack of AI product development — from vector embeddings and retrieval systems to FastAPI backends, Docker deployments, and clean integrations.
+      </p>
+      <p>
+        What drives me is the challenge of taking complex AI capabilities and turning them into reliable, production-ready tools. Whether it's reducing hallucinations in a RAG pipeline, automating a GitHub-to-deployment workflow, or building natural language interfaces for structured tasks — I care about systems that actually work.
+      </p>
+      <p>
+        I'm always looking to collaborate with teams building ambitious things at the frontier of AI.
       </p>
     </div>
   );
