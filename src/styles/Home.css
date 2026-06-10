@@ -310,6 +310,53 @@ nav ul li a:hover {
     }
 }
 
+
+/* Experience Section */
+.experience-section {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.experience-details {
+    margin-top: 20px;
+}
+
+.experience-item {
+    margin-bottom: 20px;
+}
+
+.experience-item h2 {
+    font-size: 24px;
+    color: #ffffff;
+    margin: 0;
+}
+
+.experience-item .subtext {
+    font-size: 18px;
+    color: #b0b0b0;
+}
+
+.experience-item .details {
+    font-size: 16px;
+    color: #b0b0b0;
+}
+
+@media (max-width: 768px) {
+    .experience-item h2 {
+        font-size: 20px;
+    }
+
+    .experience-item .subtext {
+        font-size: 16px;
+    }
+
+    .experience-item .details {
+        font-size: 14px;
+    }
+}
+
 /* Projects Section */
 .projects-section {
     max-width: 1000px;

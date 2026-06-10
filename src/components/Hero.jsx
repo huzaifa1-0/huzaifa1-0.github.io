@@ -1,6 +1,6 @@
 import React from 'react';
 import portfolioImg from '../assets/portfolio.png';
-import resumePdf from '../assets/resume.pdf';
+import resumePdf from '../assets/Huzaifa Rashid AI Engineer.pdf';
 
 const Hero = () => {
   return (

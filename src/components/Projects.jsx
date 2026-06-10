@@ -2,18 +2,23 @@ import React from 'react';
 
 const projectsData = [
   {
-    title: 'AI Github Auditor',
-    description: 'A powerful AI agent that audits your GitHub repositories, detects security & quality issues, tracks project progress, and provides GPT-powered insights — all in a modular, extensible framework.',
+    title: 'eMCP Nexus (FYP)',
+    description: 'Designed and developed an AI-powered MCP marketplace enabling AI engineers to deploy, monetize, and scale MCP tools using a pay-per-task execution model with integrated Stripe and Web3/crypto billing. Built a semantic search and discovery engine using FAISS and vector embeddings, integrated a RAG-powered chatbot, and engineered a GitHub-to-deployment workflow.',
+    link: 'https://github.com/huzaifa1-0'
+  },
+  {
+    title: 'AI GitHub Auditor',
+    description: 'Built an AI-powered tool to audit GitHub repositories, detect security/code quality issues, and track project metrics. Integrated Bandit, ESLint and PyLint with Phi-2 to produce clear audit summaries and detailed recommendations. Designed a modular, plugin-ready architecture to support future AI automation and reporting capabilities.',
     link: 'https://github.com/huzaifa1-0/AI-Github-Auditor'
   },
   {
-    title: 'LEGALSENSE | Intelligent Legal Advisor',
-    description: 'LegalSense is an AI-powered legal assistant for Pakistan that offers document summarization, smart Q&A, and compliance checks.',
+    title: 'LegalSense',
+    description: 'Designed a Retrieval-Augmented Generation chatbot for legal advisory use cases, delivering accurate, precedent-backed responses. Indexed legal documents using vector embeddings, significantly reducing hallucinations and improving real-time document retrieval accuracy.',
     link: 'https://github.com/huzaifa1-0/LEGALSENSE'
   },
   {
     title: 'Presence.AI',
-    description: 'A face recognition attendance system that marks attendance by detecting faces. Sends email notifications to students with less than 75% attendance.',
+    description: 'Developed a real-time face recognition attendance system using OpenCV and VGG, achieving ~92% recognition accuracy and reducing false attendance entries. Implemented advanced deep learning models and notification workflows, including automated email alerts for low attendance thresholds.',
     link: 'https://github.com/huzaifa1-0/Face-Recognition-Using-VGG'
   }
 ];
