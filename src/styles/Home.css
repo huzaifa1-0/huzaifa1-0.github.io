@@ -53,6 +53,7 @@ nav ul li a {
     color: #ffffff;
     text-decoration: none;
     font-size: 16px;
+    cursor: pointer;
 }
 
 nav ul li a:hover {
@@ -144,33 +145,6 @@ nav ul li a:hover {
 
 @media (max-width: 768px) {
     .hero {
-        padding: 100px 20px 50px;
-        margin-top: 60px; /* Adjust margin for mobile */
-    }
-
-    .hero-content h2 {
-        font-size: 2rem;
-        white-space: normal;
-    }
-
-    .hero-content p {
-        font-size: 1.5rem;
-    }
-
-    .hero-image img {
-        width: 200px;
-        height: 200px;
-    }
-}
-
-.hero-image img:hover {
-    transform: scale(1.05);
-}
-
-@media (max-width: 768px) {
-    .hero {
-        flex-direction: column;
-        text-align: center;
         padding: 100px 20px 50px;
         margin-top: 60px; /* Adjust margin for mobile */
     }
@@ -495,6 +469,7 @@ nav ul li a:hover {
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
+    z-index: 1001;
 }
 
 .back-to-top.visible {
