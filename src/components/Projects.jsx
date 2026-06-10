@@ -4,7 +4,7 @@ const projectsData = [
   {
     title: 'eMCP Nexus (FYP)',
     description: 'Designed and developed an AI-powered MCP marketplace enabling AI engineers to deploy, monetize, and scale MCP tools using a pay-per-task execution model with integrated Stripe and Web3/crypto billing. Built a semantic search and discovery engine using FAISS and vector embeddings, integrated a RAG-powered chatbot, and engineered a GitHub-to-deployment workflow.',
-    link: 'https://github.com/huzaifa1-0'
+    link: 'https://github.com/huzaifa1-0/eMCP-Nexus'
   },
   {
     title: 'AI GitHub Auditor',

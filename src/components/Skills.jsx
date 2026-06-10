@@ -7,6 +7,8 @@ import gitImg from '../assets/git.png';
 import sqlImg from '../assets/sql.png';
 import hfImg from '../assets/hf.png';
 import nmImg from '../assets/nm.png';
+import langchainImg from '../assets/langchain.png';
+import langgraphImg from '../assets/langgraph.svg';
 
 const skillsData = [
   { name: 'Python', image: pythonImg },
@@ -17,6 +19,8 @@ const skillsData = [
   { name: 'My Sql', image: sqlImg },
   { name: 'Hugging Face', image: hfImg },
   { name: 'Numpy', image: nmImg },
+  { name: 'LangChain', image: langchainImg },
+  { name: 'LangGraph', image: langgraphImg },
 ];
 
 const Skills = () => {
