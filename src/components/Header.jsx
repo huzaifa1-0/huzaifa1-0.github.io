@@ -1,39 +1,54 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 
-const Header = ({ currentPage, setCurrentPage }) => {
-  const handleNavClick = (page, anchor) => {
-    setCurrentPage(page);
-    if (anchor) {
-      setTimeout(() => {
-        const element = document.getElementById(anchor);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
+const links = [
+  { id: 'about', label: 'About' },
+  { id: 'work', label: 'Work' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'contact', label: 'Contact' },
+];
+
+const resumeUrl = `${import.meta.env.BASE_URL}Huzaifa_Rashid_Resume.pdf`;
+
+export default function Header() {
+  const [active, setActive] = useState('');
+
+  useEffect(() => {
+    const sections = links.map((link) => document.getElementById(link.id)).filter(Boolean);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <header>
-      <div className="container">
-        <h1 className="logo" style={{ cursor: 'pointer' }} onClick={() => handleNavClick('home')}>
-          Huzaifa
-        </h1>
-        <nav>
-          <ul>
-            <li>
-              <a onClick={() => handleNavClick('home', 'about')}>About</a>
-            </li>
-            <li>
-              <a onClick={() => handleNavClick('contact')}>Book a call</a>
-            </li>
-          </ul>
+    <header className="site-header">
+      <div className="site-header__bar">
+        <a className="site-header__name" href="#top">
+          Huzaifa Rashid
+        </a>
+        <nav className="nav" aria-label="Primary">
+          {links.map((link) => (
+            <a
+              key={link.id}
+              className="nav__link"
+              href={`#${link.id}`}
+              aria-current={active === link.id ? 'true' : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
+        <a className="btn btn--small btn--primary" href={resumeUrl} download="Huzaifa_Rashid_Resume.pdf">
+          Resume
+        </a>
       </div>
     </header>
   );
-};
-
-export default Header;
+}
