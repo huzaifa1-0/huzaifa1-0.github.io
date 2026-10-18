@@ -7,7 +7,7 @@ A modern, fast, component-based React portfolio application powered by Vite.
 *   **Vite**: Extremely fast build tool and development server.
 *   **Responsive Design**: Mobile-friendly layout with automatic light and dark themes.
 *   **Single-page layout**: Anchor navigation between About, Work, Experience, Skills and Contact, with the active section highlighted.
-*   **Interactive hero**: A canvas "embedding map" of skills where the cursor acts as a search query and the nearest skills are retrieved with a similarity score. It respects `prefers-reduced-motion`.
+*   **Project search**: Visitors can search the projects by tool, technique or topic (for example "FastAPI" or "face recognition"). Results are ranked, matches are highlighted, and `/` focuses the search box. Edit the `projects` array in `src/components/Projects.jsx` to add projects; they become searchable automatically.
 *   **Resume**: The downloadable PDF lives in `public/Huzaifa_Rashid_Resume.pdf`; replace it to update the download.
 
 ## Getting Started
