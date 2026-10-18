@@ -272,6 +272,46 @@ nav ul li a:hover {
     }
 }
 
+/* Skills categories (resume skill groups) */
+.skills-categories {
+    margin-top: 40px;
+    display: grid;
+    gap: 20px;
+    text-align: left;
+}
+
+.skill-category h3 {
+    font-size: 18px;
+    color: #e0e0ff;
+    margin: 0 0 10px;
+}
+
+.skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-chip {
+    background-color: #29293e;
+    color: #d1d1e9;
+    border: 1px solid #a855f7;
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .skill-category h3 {
+        font-size: 16px;
+    }
+
+    .skill-chip {
+        font-size: 13px;
+        padding: 4px 12px;
+    }
+}
+
 /* Education Section */
 .education-section {
     max-width: 1000px;
@@ -351,6 +391,20 @@ nav ul li a:hover {
     color: #b0b0b0;
 }
 
+.experience-points {
+    max-width: 860px;
+    margin: 14px auto 0;
+    padding-left: 22px;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #d1d1e9;
+}
+
+.experience-points li {
+    margin-bottom: 8px;
+}
+
 @media (max-width: 768px) {
     .experience-item h2 {
         font-size: 20px;
@@ -362,6 +416,11 @@ nav ul li a:hover {
 
     .experience-item .details {
         font-size: 14px;
+    }
+
+    .experience-points {
+        font-size: 14px;
+        padding-left: 18px;
     }
 }
 
@@ -395,6 +454,26 @@ nav ul li a:hover {
     font-size: 16px;
     color: #b0b0b0;
     margin: 10px 0;
+}
+
+.project-item .tech {
+    font-family: 'Fira Mono', monospace;
+    font-size: 14px;
+    color: #a855f7;
+    margin: 6px 0 0;
+}
+
+.project-points {
+    margin: 14px 0 0;
+    padding-left: 22px;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #b0b0b0;
+}
+
+.project-points li {
+    margin-bottom: 8px;
 }
 
 .github-link {
@@ -434,6 +513,15 @@ nav ul li a:hover {
 
     .project-item .description {
         font-size: 14px;
+    }
+
+    .project-item .tech {
+        font-size: 12px;
+    }
+
+    .project-points {
+        font-size: 14px;
+        padding-left: 18px;
     }
 
     .github-link {
