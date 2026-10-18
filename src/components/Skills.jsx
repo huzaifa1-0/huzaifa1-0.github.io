@@ -23,6 +23,30 @@ const skillsData = [
   { name: 'LangGraph', image: langgraphImg },
 ];
 
+const skillCategories = [
+  { title: 'Programming', items: ['Python', 'JavaScript', 'C++'] },
+  {
+    title: 'LLMs & Generative AI',
+    items: ['LLM Integration', 'AI Agents', 'Local & Open-Source LLMs (Phi-2)', 'Prompt Engineering', 'Structured Data Extraction', 'Text-to-Query', 'Speech-to-Text', 'Text Categorization', 'NLP'],
+  },
+  {
+    title: 'RAG & Vector Search',
+    items: ['RAG Pipelines', 'LangChain', 'FAISS', 'Pinecone', 'ChromaDB', 'Embeddings', 'Document Chunking', 'Semantic Search'],
+  },
+  {
+    title: 'ML & Computer Vision',
+    items: ['scikit-learn', 'TensorFlow', 'Hugging Face', 'OpenCV', 'VGG', 'Medical Image Analysis', 'Face Recognition', 'Model Training & Evaluation'],
+  },
+  {
+    title: 'Backend & APIs',
+    items: ['Django', 'FastAPI', 'RESTful APIs', 'GitHub API', 'API Integration', 'Workflow Automation', 'Event-Driven Automation'],
+  },
+  {
+    title: 'Deployment & Tools',
+    items: ['Docker', 'Git', 'CI/CD', 'Model Deployment', 'Static Code Analysis (Bandit, Pylint, ESLint)'],
+  },
+];
+
 const Skills = () => {
   return (
     <div className="skills-section">
@@ -35,6 +59,18 @@ const Skills = () => {
           <div className="skill-card" key={index}>
             <img src={skill.image} alt={skill.name} />
             <p>{skill.name}</p>
+          </div>
+        ))}
+      </div>
+      <div className="skills-categories">
+        {skillCategories.map((category, index) => (
+          <div className="skill-category" key={index}>
+            <h3>{category.title}</h3>
+            <div className="skill-chips">
+              {category.items.map((item, i) => (
+                <span className="skill-chip" key={i}>{item}</span>
+              ))}
+            </div>
           </div>
         ))}
       </div>
