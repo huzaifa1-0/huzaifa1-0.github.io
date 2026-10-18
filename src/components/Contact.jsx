@@ -1,37 +1,74 @@
-import React from 'react';
+import { useState } from 'react';
+import resumePdf from '../assets/Huzaifa Rashid AI Engineer.pdf';
+import { profile } from '../data/resume';
 
-const Contact = ({ setCurrentPage }) => {
-  const handleContactClick = (e) => {
-    e.preventDefault();
-    setCurrentPage('contact');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+const Contact = () => {
+  const [copyState, setCopyState] = useState('idle');
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setCopyState('copied');
+      setTimeout(() => setCopyState('idle'), 2500);
+    } catch {
+      setCopyState('failed');
+    }
   };
 
   return (
-    <div className="contact-section">
-      <div className="heading-line">
-        <hr className="purple-line" />
+    <section id="contact" className="section">
+      <div className="wrap section__grid">
+        <h2 className="section__title">Contact</h2>
+        <div>
+          <p className="contact__lead">
+            Have a role or a project in mind? Write to me and I'll reply within 24 hours.
+          </p>
+          <a className="contact__email" href={`mailto:${profile.email}?subject=Hello%20Huzaifa`}>
+            {profile.email}
+          </a>
+
+          <div className="contact__actions">
+            <a className="btn btn--solid" href={`mailto:${profile.email}?subject=Hello%20Huzaifa`}>
+              Email me
+            </a>
+            <button type="button" className="btn btn--line" onClick={copyEmail}>
+              {copyState === 'copied' ? 'Email address copied' : 'Copy email address'}
+            </button>
+            <a className="btn btn--line" href={resumePdf} download="Huzaifa_Rashid_Resume.pdf">
+              Download resume
+            </a>
+          </div>
+          <p className="contact__status" role="status">
+            {copyState === 'failed' && `Copying didn't work in this browser. My address is ${profile.email}.`}
+          </p>
+
+          <dl className="contact__list">
+            <div className="contact__row">
+              <dt>Phone</dt>
+              <dd>
+                <a className="text-link" href={profile.phoneHref}>
+                  {profile.phone}
+                </a>
+              </dd>
+            </div>
+            <div className="contact__row">
+              <dt>Location</dt>
+              <dd>{profile.location}</dd>
+            </div>
+            {profile.links.map((link) => (
+              <div className="contact__row" key={link.label}>
+                <dt>{link.label}</dt>
+                <dd>
+                  <a className="text-link" href={link.href} target="_blank" rel="noopener noreferrer">
+                    {link.text}
+                  </a>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
-      <h1>Looking to collaborate or need assistance with your next project?</h1>
-      <a href="#contact" className="button" onClick={handleContactClick}>
-        Let's get on call
-      </a>
-      <div className="contacts">
-        <p>Phone: +923107164892</p>
-        <p>Email: huzaifaras10@gmail.com</p>
-      </div>
-      <div className="social-links">
-        <a href="https://www.linkedin.com/in/huzaifa-rashid-ba71a8263/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" />
-        </a>
-        <a href="https://medium.com/@huzaifa1" target="_blank" rel="noopener noreferrer" aria-label="Medium">
-          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968906.png" alt="Medium" />
-        </a>
-        <a href="https://github.com/huzaifa1-0" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" />
-        </a>
-      </div>
-    </div>
+    </section>
   );
 };
 

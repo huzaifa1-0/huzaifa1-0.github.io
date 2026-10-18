@@ -1,19 +1,27 @@
-import React from 'react';
-import portfolioImg from '../assets/portfolio.png';
 import resumePdf from '../assets/Huzaifa Rashid AI Engineer.pdf';
+import { profile } from '../data/resume';
+import WorkMap from './WorkMap';
 
 const Hero = () => {
   return (
-    <section className="hero">
-      <div className="hero-image">
-        <img src={portfolioImg} alt="Huzaifa Rashid" />
-      </div>
-      <div className="hero-content">
-        <h2>Hi, I'm <span className="highlight">Huzaifa Rashid</span></h2>
-        <p>and I'm an <span class="highlight">AI Engineer</span>.</p>
-        <a href={resumePdf} download="Huzaifa_Rashid_Resume.pdf" className="btn">
-          Download my resume
-        </a>
+    <section id="top" className="hero">
+      <div className="wrap hero__inner">
+        <div className="hero__copy">
+          <h1 className="hero__name">
+            <span>Huzaifa</span>
+            <span>Rashid</span>
+          </h1>
+          <p className="hero__intro">{profile.intro}</p>
+          <div className="hero__actions">
+            <a className="btn btn--white" href={resumePdf} download="Huzaifa_Rashid_Resume.pdf">
+              Download resume
+            </a>
+            <a className="btn btn--ghost" href="#contact">
+              Get in touch
+            </a>
+          </div>
+        </div>
+        <WorkMap />
       </div>
     </section>
   );

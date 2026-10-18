@@ -1,20 +1,19 @@
-import React from 'react';
+import { education } from '../data/resume';
 
 const Education = () => {
   return (
-    <div className="education-section">
-      <div className="heading-line">
-        <h1>Education</h1>
-        <hr className="purple-line" />
+    <section id="education" className="section">
+      <div className="wrap section__grid">
+        <h2 className="section__title">Education</h2>
+        <article className="entry">
+          <h3 className="entry__title">{education.degree}</h3>
+          <p className="entry__meta">
+            {education.school}, {education.place}
+          </p>
+          <p className="entry__period">{education.period}</p>
+        </article>
       </div>
-      <div className="education-details">
-        <div className="education-item">
-          <h2>Bachelor's in Computer Science</h2>
-          <p className="subtext">University of the Punjab</p>
-          <p className="details">2022-2026 | Lahore - Pakistan</p>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 };
 
