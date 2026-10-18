@@ -1,21 +1,18 @@
-import React from 'react';
-
-const Education = () => {
+export default function Education() {
   return (
-    <div className="education-section">
-      <div className="heading-line">
-        <h1>Education</h1>
-        <hr className="purple-line" />
-      </div>
-      <div className="education-details">
-        <div className="education-item">
-          <h2>Bachelor's in Computer Science</h2>
-          <p className="subtext">University of the Punjab</p>
-          <p className="details">2022-2026 | Lahore - Pakistan</p>
+    <section className="section" id="education">
+      <div className="section__inner">
+        <div className="section__head">
+          <h2 className="section__title">Education</h2>
+        </div>
+        <div className="section__body">
+          <div className="edu">
+            <h3 className="edu__degree">Bachelor of Science in Computer Science</h3>
+            <p className="edu__school">University of the Punjab</p>
+            <p className="edu__meta">2022 to 2026, Lahore, Pakistan</p>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default Education;
+}

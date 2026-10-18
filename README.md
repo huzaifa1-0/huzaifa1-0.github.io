@@ -5,9 +5,10 @@ A modern, fast, component-based React portfolio application powered by Vite.
 ## Features
 *   **React 19**: Component-driven UI development.
 *   **Vite**: Extremely fast build tool and development server.
-*   **Responsive Design**: Mobile-friendly layout.
-*   **State-Based Navigation**: Seamless switching between pages (Home and Book a Call) optimized for single-page GitHub Pages hosting.
-*   **Back to Top**: Quick navigation utility.
+*   **Responsive Design**: Mobile-friendly layout with automatic light and dark themes.
+*   **Single-page layout**: Anchor navigation between About, Work, Experience, Skills and Contact, with the active section highlighted.
+*   **Interactive hero**: A canvas "embedding map" of skills where the cursor acts as a search query and the nearest skills are retrieved with a similarity score. It respects `prefers-reduced-motion`.
+*   **Resume**: The downloadable PDF lives in `public/Huzaifa_Rashid_Resume.pdf`; replace it to update the download.
 
 ## Getting Started
 
