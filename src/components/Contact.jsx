@@ -3,7 +3,6 @@ import { useState } from 'react';
 const EMAIL = 'huzaifaras10@gmail.com';
 
 const channels = [
-  { label: 'Email', value: EMAIL, href: `mailto:${EMAIL}` },
   { label: 'Phone', value: '+92-310-7164892', href: 'tel:+923107164892' },
   { label: 'LinkedIn', value: 'linkedin.com/in/huzaifarashid1', href: 'https://linkedin.com/in/huzaifarashid1', external: true },
   { label: 'GitHub', value: 'github.com/huzaifa1-0', href: 'https://github.com/huzaifa1-0', external: true },
@@ -12,10 +11,21 @@ const channels = [
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', message: '' });
+  const [copied, setCopied] = useState(false);
 
   const onChange = (event) => {
     const { name, value } = event.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard access can be blocked; the address is still visible and linked.
+    }
   };
 
   // There is no backend, so the form opens the visitor's email app with the
@@ -36,6 +46,20 @@ export default function Contact() {
         </div>
         <div className="section__body contact">
           <ul className="channels">
+            <li className="channels__row">
+              <span className="channels__label">Email</span>
+              <span className="channels__value">
+                <a className="link" href={`mailto:${EMAIL}`}>
+                  {EMAIL}
+                </a>
+                <button className="copy" type="button" onClick={copyEmail}>
+                  {copied ? 'Copied' : 'Copy'}
+                </button>
+                <span className="sr-only" role="status" aria-live="polite">
+                  {copied ? 'Email address copied' : ''}
+                </span>
+              </span>
+            </li>
             {channels.map((channel) => (
               <li className="channels__row" key={channel.label}>
                 <span className="channels__label">{channel.label}</span>

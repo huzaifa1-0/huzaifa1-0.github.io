@@ -1,3 +1,9 @@
+const proof = [
+  { value: '4', label: 'LLM and computer vision features built for production platforms' },
+  { value: '~92%', label: 'face-recognition accuracy, with inference running locally' },
+  { value: '0', label: 'lines of client code sent to third-party APIs during repository audits' },
+];
+
 const capabilities = [
   {
     name: 'LLM applications and agents',
@@ -33,6 +39,16 @@ export default function About() {
             I'm a Computer Science graduate from the University of the Punjab. I work across the whole path of an AI
             feature: choosing the model, grounding it in data, wrapping it in an API and shipping it.
           </p>
+
+          <dl className="proof">
+            {proof.map((item) => (
+              <div className="proof__item" key={item.label}>
+                <dt className="proof__value">{item.value}</dt>
+                <dd className="proof__label">{item.label}</dd>
+              </div>
+            ))}
+          </dl>
+
           <dl className="defs">
             {capabilities.map((item) => (
               <div className="defs__row" key={item.name}>
