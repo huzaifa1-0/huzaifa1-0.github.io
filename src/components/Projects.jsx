@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const projects = [
   {
@@ -13,7 +13,7 @@ const projects = [
       'Integrated a RAG-powered support chatbot that retrieves from tool documentation to answer integration and troubleshooting questions, alongside a recommendation system based on usage rankings.',
       'Engineered a GitHub-to-deployment pipeline that parses a repository and automatically deploys it as a containerized FastAPI endpoint.',
     ],
-    link: 'https://github.com/huzaifa1-0/eMCP-Nexus',
+    repo: 'huzaifa1-0/eMCP-Nexus',
   },
   {
     title: 'Presence.AI',
@@ -27,7 +27,7 @@ const projects = [
       'Trained and evaluated the recognition model with TensorFlow and scikit-learn, tuning it until results were consistently reliable.',
       'Automated attendance logging and notifications so recognition results become attendance records and alerts, removing manual roll calls and follow-up.',
     ],
-    link: 'https://github.com/huzaifa1-0/Face-Recognition-Using-VGG',
+    repo: 'huzaifa1-0/Face-Recognition-Using-VGG',
   },
   {
     title: 'LegalSense',
@@ -41,119 +41,80 @@ const projects = [
       'Used LangChain to orchestrate retrieval and generation, passing the top-ranked passages as context to a locally run LLM for each question.',
       'Designed prompts that restrict the model to the retrieved text, reducing hallucinated answers and making legal information easier for non-experts to follow.',
     ],
-    link: 'https://github.com/huzaifa1-0/LEGALSENSE',
+    repo: 'huzaifa1-0/LEGALSENSE',
   },
 ];
 
-const SUGGESTIONS = ['RAG', 'FastAPI', 'FAISS', 'OpenCV', 'LangChain', 'Docker', 'TensorFlow', 'Hugging Face'];
+// Live star and fork counts from the public GitHub API. If the request fails or is
+// rate limited, the counts are simply left out and nothing else changes.
+function useRepoStats(repos) {
+  const [stats, setStats] = useState({});
 
-// Short forms people are likely to type, mapped to wording used in the project text.
-const ALIASES = {
-  cv: ['computer vision', 'opencv'],
-  llm: ['language model', 'local llm'],
-  llms: ['llm'],
-  face: ['face recognition'],
-  faces: ['face'],
-  vectordb: ['vector database'],
-  deploy: ['deployment', 'deploys'],
-  chatbot: ['chatbot', 'chat bot'],
-  ml: ['machine learning', 'deep learning', 'scikit-learn'],
-  dl: ['deep learning', 'tensorflow'],
-  search: ['semantic search', 'faiss'],
-  api: ['fastapi', 'endpoint'],
-};
+  useEffect(() => {
+    const controller = new AbortController();
 
-const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    repos.forEach(async (repo) => {
+      const cacheKey = `repo-stats:${repo}`;
+      try {
+        const cached = sessionStorage.getItem(cacheKey);
+        if (cached) {
+          setStats((prev) => ({ ...prev, [repo]: JSON.parse(cached) }));
+          return;
+        }
+      } catch {
+        // Storage can be blocked; fall through to the network request.
+      }
 
-function variantsOf(token) {
-  const list = [token];
-  if (ALIASES[token]) list.push(...ALIASES[token]);
-  if (token.length > 3 && token.endsWith('s')) list.push(token.slice(0, -1));
-  return [...new Set(list)];
+      try {
+        const response = await fetch(`https://api.github.com/repos/${repo}`, { signal: controller.signal });
+        if (!response.ok) return;
+        const data = await response.json();
+        const value = { stars: data.stargazers_count, forks: data.forks_count };
+        setStats((prev) => ({ ...prev, [repo]: value }));
+        try {
+          sessionStorage.setItem(cacheKey, JSON.stringify(value));
+        } catch {
+          // Ignore storage errors.
+        }
+      } catch {
+        // Offline, blocked or rate limited: show no counts.
+      }
+    });
+
+    return () => controller.abort();
+  }, [repos]);
+
+  return stats;
 }
 
-// Higher weight when the keyword hits a title or tool, lower in the descriptions.
-function scoreProject(project, tokens) {
-  const strong = [project.title, ...project.stack].join(' ').toLowerCase();
-  const medium = [project.kind, project.headline, ...project.flow].join(' ').toLowerCase();
-  const weak = project.points.join(' ').toLowerCase();
+const repoList = projects.map((project) => project.repo);
 
-  let total = 0;
-  for (const token of tokens) {
-    const variants = variantsOf(token);
-    let best = 0;
-    for (const variant of variants) {
-      if (strong.includes(variant)) best = Math.max(best, 3);
-      else if (medium.includes(variant)) best = Math.max(best, 2);
-      else if (weak.includes(variant)) best = Math.max(best, 1);
-    }
-    if (best === 0) return 0;
-    total += best;
-  }
-  return total;
-}
-
-function Highlight({ text, pattern }) {
-  if (!pattern) return text;
-  return text.split(pattern).map((part, i) =>
-    i % 2 === 1 ? (
-      <mark className="hit" key={i}>
-        {part}
-      </mark>
-    ) : (
-      part
-    ),
+function StarIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="m12 3.2 2.7 5.5 6 .9-4.4 4.2 1 6-5.3-2.8-5.4 2.8 1.1-6-4.4-4.2 6-.9L12 3.2Z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 
-function SearchIcon() {
+function ForkIcon() {
   return (
-    <svg className="search__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="11" cy="11" r="6.5" stroke="currentColor" strokeWidth="1.8" />
-      <path d="m16 16 4.5 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="6.5" cy="5.5" r="2.2" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="17.5" cy="5.5" r="2.2" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="12" cy="18.5" r="2.2" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M6.5 7.7v1.3a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7.7M12 11v5.3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
     </svg>
   );
 }
 
 export default function Projects() {
-  const [query, setQuery] = useState('');
-  const inputRef = useRef(null);
-
-  // Press "/" anywhere on the page to jump to the search box.
-  useEffect(() => {
-    const onKey = (event) => {
-      const tag = event.target.tagName;
-      if (event.key === '/' && tag !== 'INPUT' && tag !== 'TEXTAREA' && !event.metaKey && !event.ctrlKey) {
-        event.preventDefault();
-        inputRef.current?.focus();
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
-
-  const tokens = useMemo(() => query.toLowerCase().split(/\s+/).filter(Boolean), [query]);
-
-  const results = useMemo(() => {
-    if (tokens.length === 0) return projects.map((project) => ({ project, score: 0 }));
-    return projects
-      .map((project, index) => ({ project, index, score: scoreProject(project, tokens) }))
-      .filter((item) => item.score > 0)
-      .sort((a, b) => b.score - a.score || a.index - b.index);
-  }, [tokens]);
-
-  const pattern = useMemo(() => {
-    if (tokens.length === 0) return null;
-    const parts = [...new Set(tokens.flatMap(variantsOf))].sort((a, b) => b.length - a.length).map(escapeRegExp);
-    return new RegExp(`(${parts.join('|')})`, 'i');
-  }, [tokens]);
-
-  const toggleSuggestion = (term) => setQuery((current) => (current.toLowerCase() === term.toLowerCase() ? '' : term));
-
-  const status =
-    tokens.length === 0
-      ? `${projects.length} projects. Search by tool, technique or topic.`
-      : `${results.length} of ${projects.length} projects match “${query.trim()}”.`;
+  const stats = useRepoStats(repoList);
 
   return (
     <section className="section" id="work">
@@ -164,111 +125,68 @@ export default function Projects() {
         </div>
 
         <div className="section__body">
-          <div className="search" id="search" role="search">
-            <label className="search__label" htmlFor="project-search">
-              Search my projects by tool, technique or topic
-            </label>
-            <div className="search__field">
-              <SearchIcon />
-              <input
-                ref={inputRef}
-                id="project-search"
-                className="search__input"
-                type="search"
-                autoComplete="off"
-                spellCheck="false"
-                placeholder="Try “RAG”, “FastAPI” or “face recognition”"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Escape') setQuery('');
-                }}
-              />
-              {query ? (
-                <button className="search__clear" type="button" onClick={() => setQuery('')} aria-label="Clear search">
-                  Clear
-                </button>
-              ) : (
-                <kbd className="search__kbd" aria-hidden="true">
-                  /
-                </kbd>
-              )}
-            </div>
-
-            <ul className="chips" aria-label="Suggested keywords">
-              {SUGGESTIONS.map((term) => (
-                <li key={term}>
-                  <button
-                    className="chip"
-                    type="button"
-                    aria-pressed={query.toLowerCase() === term.toLowerCase()}
-                    onClick={() => toggleSuggestion(term)}
-                  >
-                    {term}
-                  </button>
-                </li>
-              ))}
-            </ul>
-
-            <p className="search__status" role="status" aria-live="polite">
-              {status}
-            </p>
-          </div>
-
-          {results.length === 0 ? (
-            <div className="empty">
-              <p className="empty__title">No project matches “{query.trim()}”.</p>
-              <p className="empty__text">Try a tool such as FastAPI or OpenCV, or a topic such as semantic search.</p>
-              <button className="btn btn--ghost btn--small" type="button" onClick={() => setQuery('')}>
-                Show all projects
-              </button>
-            </div>
-          ) : (
-            <ul className="projects">
-              {results.map(({ project }) => (
+          <ul className="projects">
+            {projects.map((project) => {
+              const repoStats = stats[project.repo];
+              return (
                 <li className="project" key={project.title}>
-                  <p className="project__kind">
-                    <Highlight text={project.kind} pattern={pattern} />
-                  </p>
-                  <h3 className="project__title">
-                    <Highlight text={project.title} pattern={pattern} />
-                  </h3>
-                  <p className="project__headline">
-                    <Highlight text={project.headline} pattern={pattern} />
-                  </p>
+                  <div className="project__main">
+                    <p className="project__kind">{project.kind}</p>
+                    <h3 className="project__title">{project.title}</h3>
+                    <p className="project__headline">{project.headline}</p>
 
-                  <ul className="tags" aria-label={`${project.title} stack`}>
-                    {project.stack.map((tech) => (
-                      <li className="tags__item" key={tech}>
-                        <Highlight text={tech} pattern={pattern} />
-                      </li>
-                    ))}
-                  </ul>
+                    <ul className="tags" aria-label={`${project.title} stack`}>
+                      {project.stack.map((tech) => (
+                        <li className="tags__item" key={tech}>
+                          {tech}
+                        </li>
+                      ))}
+                    </ul>
 
-                  <ol className="flow" aria-label={`${project.title} pipeline`}>
-                    {project.flow.map((step) => (
-                      <li className="flow__step" key={step}>
-                        <Highlight text={step} pattern={pattern} />
-                      </li>
-                    ))}
-                  </ol>
+                    <ol className="flow" aria-label={`${project.title} pipeline`}>
+                      {project.flow.map((step) => (
+                        <li className="flow__step" key={step}>
+                          {step}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
 
-                  <ul className="bullets">
-                    {project.points.map((point) => (
-                      <li key={point}>
-                        <Highlight text={point} pattern={pattern} />
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="project__detail">
+                    <ul className="bullets">
+                      {project.points.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
 
-                  <a className="link" href={project.link} target="_blank" rel="noopener noreferrer">
-                    View on GitHub
-                  </a>
+                    <div className="project__foot">
+                      <a className="link" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener noreferrer">
+                        View on GitHub
+                      </a>
+                      {repoStats && repoStats.stars > 0 && (
+                        <span className="stat" title="GitHub stars">
+                          <StarIcon />
+                          <span>
+                            {repoStats.stars}
+                            <span className="sr-only"> GitHub stars</span>
+                          </span>
+                        </span>
+                      )}
+                      {repoStats && repoStats.forks > 0 && (
+                        <span className="stat" title="GitHub forks">
+                          <ForkIcon />
+                          <span>
+                            {repoStats.forks}
+                            <span className="sr-only"> GitHub forks</span>
+                          </span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </li>
-              ))}
-            </ul>
-          )}
-
+              );
+            })}
+          </ul>
           <p className="more">
             More repositories on{' '}
             <a className="link" href="https://github.com/huzaifa1-0?tab=repositories" target="_blank" rel="noopener noreferrer">

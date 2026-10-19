@@ -10,6 +10,10 @@ export default function Hero() {
   return (
     <section className="hero" id="top">
       <div className="hero__inner">
+        <p className="status">
+          <span className="status__dot" aria-hidden="true" />
+          Open to AI engineering roles
+        </p>
         <h1 className="hero__name">
           <span className="hero__line">Huzaifa</span> <span className="hero__line">Rashid</span>
         </h1>
@@ -27,8 +31,8 @@ export default function Hero() {
               <a className="btn btn--primary" href={resumeUrl} download="Huzaifa_Rashid_Resume.pdf">
                 Download resume
               </a>
-              <a className="btn btn--ghost" href="#search">
-                Search my work
+              <a className="btn btn--ghost" href="#work">
+                View my work
               </a>
             </div>
           </div>
