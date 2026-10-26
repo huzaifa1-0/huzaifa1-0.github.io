@@ -2,6 +2,19 @@ import { useEffect, useState } from 'react';
 
 const projects = [
   {
+    title: 'MedFlow',
+    kind: 'Healthcare platform · Company project',
+    headline: 'A cloud-based dental practice management platform for US healthcare providers, with AI built into charting, analytics and imaging.',
+    stack: ['React', 'Vite', 'Material UI', 'Redux Toolkit', 'LLMs', 'Computer vision'],
+    flow: ['Appointment audio', 'Speech-to-text', 'LLM drafts SOAP note', 'Saved to patient record'],
+    points: [
+      'Co-develop the AI layer of MedFlow, turning clinical and front-office workflows into production LLM and computer vision features.',
+      'Built an AI clinical-notes feature that transcribes appointment audio and drafts structured SOAP-style notes grounded in the patient history and treatment plan, plus hands-free voice charting that saves spoken findings to the patient record.',
+      'Developed a conversational analytics assistant that turns plain-English questions into validated data queries and returns interactive reports and dashboards, and integrated AI-assisted X-ray analysis that feeds findings into charting and treatment planning.',
+      'The React frontend covers scheduling, patient records, clinical exams and treatment plans, insurance claims and billing, role-based access, real-time chat and a patient portal.',
+    ],
+  },
+  {
     title: 'eMCP Nexus',
     kind: 'Final year project',
     headline: 'A marketplace where developers publish, deploy and monetize AI tools.',
@@ -42,19 +55,6 @@ const projects = [
       'Designed prompts that restrict the model to the retrieved text, reducing hallucinated answers and making legal information easier for non-experts to follow.',
     ],
     repo: 'huzaifa1-0/LEGALSENSE',
-  },
-  {
-    title: 'MedFlow',
-    kind: 'Healthcare platform · Company project',
-    headline: 'A cloud-based dental practice management platform for US healthcare providers, with AI built into charting, analytics and imaging.',
-    stack: ['React', 'Vite', 'Material UI', 'Redux Toolkit', 'LLMs', 'Computer vision'],
-    flow: ['Appointment audio', 'Speech-to-text', 'LLM drafts SOAP note', 'Saved to patient record'],
-    points: [
-      'Co-develop the AI layer of MedFlow, turning clinical and front-office workflows into production LLM and computer vision features.',
-      'Built an AI clinical-notes feature that transcribes appointment audio and drafts structured SOAP-style notes grounded in the patient history and treatment plan, plus hands-free voice charting that saves spoken findings to the patient record.',
-      'Developed a conversational analytics assistant that turns plain-English questions into validated data queries and returns interactive reports and dashboards, and integrated AI-assisted X-ray analysis that feeds findings into charting and treatment planning.',
-      'The React frontend covers scheduling, patient records, clinical exams and treatment plans, insurance claims and billing, role-based access, real-time chat and a patient portal.',
-    ],
   },
 ];
 
