@@ -43,6 +43,19 @@ const projects = [
     ],
     repo: 'huzaifa1-0/LEGALSENSE',
   },
+  {
+    title: 'MedFlow',
+    kind: 'Healthcare platform · Company project',
+    headline: 'A cloud-based dental practice management platform for US healthcare providers, with AI built into charting, analytics and imaging.',
+    stack: ['React', 'Vite', 'Material UI', 'Redux Toolkit', 'LLMs', 'Computer vision'],
+    flow: ['Appointment audio', 'Speech-to-text', 'LLM drafts SOAP note', 'Saved to patient record'],
+    points: [
+      'Co-develop the AI layer of MedFlow, turning clinical and front-office workflows into production LLM and computer vision features.',
+      'Built an AI clinical-notes feature that transcribes appointment audio and drafts structured SOAP-style notes grounded in the patient history and treatment plan, plus hands-free voice charting that saves spoken findings to the patient record.',
+      'Developed a conversational analytics assistant that turns plain-English questions into validated data queries and returns interactive reports and dashboards, and integrated AI-assisted X-ray analysis that feeds findings into charting and treatment planning.',
+      'The React frontend covers scheduling, patient records, clinical exams and treatment plans, insurance claims and billing, role-based access, real-time chat and a patient portal.',
+    ],
+  },
 ];
 
 // Live star and fork counts from the public GitHub API. If the request fails or is
@@ -87,7 +100,7 @@ function useRepoStats(repos) {
   return stats;
 }
 
-const repoList = projects.map((project) => project.repo);
+const repoList = projects.map((project) => project.repo).filter(Boolean);
 
 function StarIcon() {
   return (
@@ -127,7 +140,7 @@ export default function Projects() {
         <div className="section__body">
           <ul className="projects">
             {projects.map((project) => {
-              const repoStats = stats[project.repo];
+              const repoStats = project.repo ? stats[project.repo] : undefined;
               return (
                 <li className="project" key={project.title}>
                   <div className="project__main">
@@ -160,9 +173,13 @@ export default function Projects() {
                     </ul>
 
                     <div className="project__foot">
-                      <a className="link" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener noreferrer">
-                        View on GitHub
-                      </a>
+                      {project.repo ? (
+                        <a className="link" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener noreferrer">
+                          View on GitHub
+                        </a>
+                      ) : (
+                        <span className="stat">Private, company codebase</span>
+                      )}
                       {repoStats && repoStats.stars > 0 && (
                         <span className="stat" title="GitHub stars">
                           <StarIcon />
